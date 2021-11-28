@@ -10,7 +10,7 @@ export default function Trending(props) {
   
   return (
     <Container>
-      <h4>Recommneds for You</h4>
+      <h2>Trending</h2>
       <Content>
         {movies &&
           movies.map((movie, index) => (

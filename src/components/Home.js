@@ -64,10 +64,10 @@ export default function Home(props) {
     <Container>
       <ImgSlider />
       <Viewers />
-      <Recommends />
       <NewDisney />
-      <Originals />
       <Trending />
+      <Recommends />
+      <Originals />
     </Container>
   );
 }

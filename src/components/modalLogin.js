@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import React, { useEffect, useState } from "react";
 import { auth, provider, providerGithub } from "../firebase";
-import {GithubAuthProvider, linkWithCredential } from '@firebase/auth';
 import { signInWithPopup } from "firebase/auth";
 import Backdrop from "@mui/material/Backdrop";
 import Box from "@mui/material/Box";

@@ -11,7 +11,7 @@ export default function Recommends(props) {
   
   return (
     <Container>
-      <h4>Recommneds for You</h4>
+      <h2>Recommneds for You</h2>
       <Content>
         {movies &&
           movies.map((movie, index) => (
