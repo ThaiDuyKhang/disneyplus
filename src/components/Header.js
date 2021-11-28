@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import React, { useEffect } from "react";
-import { auth, provider } from "../firebase";
-import { signInWithPopup } from "firebase/auth";
+import { auth} from "../firebase";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useNavigate } from "react-router-dom";
 import {
@@ -10,8 +9,10 @@ import {
   setSignOutState,
   setUserLoginDetails,
 } from "../features/user/userSlice";
+import ModalLogin from "./modalLogin";
 
 export default function Header(props) {
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const userName = useSelector(selectUserName);
@@ -26,17 +27,7 @@ export default function Header(props) {
     });
   }, [userName]);
 
-  const handleAuth = () => {
-    if (!userName) {
-      signInWithPopup(auth, provider)
-        .then((result) => {
-          // console.log(result);
-          setUser(result.user);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    } else if (userName) {
+  const handleSignout = () => {
       auth
         .signOut()
         .then(() => {
@@ -46,8 +37,7 @@ export default function Header(props) {
         .catch((error) => {
           alert(error.message);
         });
-    }
-  };
+    };
 
   const setUser = (user) => {
     dispatch(
@@ -65,7 +55,7 @@ export default function Header(props) {
         <img src="/images/logo.svg" alt="logo" />
       </Logo>
       {!userName ? (
-        <Login onClick={handleAuth}>Login</Login>
+        <ModalLogin/>
       ) : (
         <>
           <NavMenu>
@@ -97,12 +87,11 @@ export default function Header(props) {
           <SignOut>
             <UserImg src={userPhoto} alt={userName} />
             <DropDown>
-              <span onClick={handleAuth}>Sign out</span>
+              <span onClick={handleSignout}>Sign out</span>
             </DropDown>
           </SignOut>
         </>
       )}
-      {/* <Login onClick={handleAuth}>Login</Login> */}
     </Nav>
   );
 }
@@ -191,22 +180,6 @@ const NavMenu = styled.div`
 
   @media (max-width: 768px) {
     display: none;
-  }
-`;
-
-const Login = styled.a`
-  background-color: rgba(0, 0, 0, 0.6);
-  padding: 8px 16px;
-  text-transform: uppercase;
-  letter-spacing: 1.5px;
-  border: 1px solid #f9f9f9;
-  border-radius: 4px;
-  transition: 0.2s all ease 0s;
-
-  &:hover {
-    cursor: pointer;
-    background-color: #f9f9f9;
-    color: rgba(0, 0, 0, 0.6);
   }
 `;
 

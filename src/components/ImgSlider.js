@@ -6,7 +6,7 @@ import Slider from "react-slick";
 
 export default function ImgSlider(props) {
   let settings = {
-    dot: true,
+    dots: true,
     infinite: true,
     speed: 500,
     slidesToShow: 1,
@@ -55,6 +55,7 @@ const Carousel = styled(Slider)`
   ul li button {
     &:before {
       font-size: 10px;
+      margin-top:10px;
       color: rgb(150, 158, 171);
     }
   }
@@ -79,15 +80,20 @@ const Wrap = styled.div`
 
   a {
     border-radius: 4px;
-    box-shadow: rgb(0 0 0 / 69%) 0px 26px 30px -10px,
-      rgb (0 0 0 / 73%) 0px 16px 10px -10px!important;
-    cursor:pointer;
-    display:block;
-    position:relative;
-    padding:4px;
-  }
-  img {
-      width:100%;
-      height:100%;
+    box-shadow: 0px 26px 30px -10px rgb(0, 0, 0, 0.69),
+      0px 16px 10px -10px rgb(0, 0, 0, 0.73) !important;
+    cursor: pointer;
+    display: block;
+    position: relative;
+    padding: 4px;
+    img {
+      width: 100%;
+      height: 100%;
+    }
+    &:hover {
+      padding: 0;
+      border: 4px solid rgba(249, 249, 249, 0.8);
+      transition-duration: 300ms;
+    }
   }
 `;
