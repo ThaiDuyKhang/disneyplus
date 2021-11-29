@@ -1,5 +1,16 @@
 {
     "movies": {
+	"16":{
+ "backgroundImg": "https://prod-ripcut-delivery.disney-plus.net/v1/variant/disney/E047E9FFE1C0CA3C9E634686C7FFF63DD27BCECD10F5361A78F15DE6A688771B/scale?width=1440&aspectRatio=1.78&format=jpeg",
+            "cardImg": "https://lumiere-a.akamaihd.net/v1/images/featured-grid-blackwidow_5c229702.jpeg?region=0,0,960,960",
+            "description": "Natasha Romanoff aka Black Widow confronts the darker parts of her ledger when a dangerous conspiracy with ties to her past arises. Pursued by a force that will stop at nothing to bring her down, Natasha must deal with her history as a spy and the broken relationships left in her wake long before she became an Avenger.",
+            "subTitle": "2021 • 2h 15m • Spy/Espionage, Super Hero, Action-Adventure",
+            "title": "Black Widow",
+"titleImg":"https://lumiere-a.akamaihd.net/v1/images/blackwidow-logo-incinemas_1c4636bc.png?region=0,0,1507,600",
+"trailer":""            
+"type": "new"
+		
+	},
         "1" :{
             "backgroundImg": "https://prod-ripcut-delivery.disney-plus.net/v1/variant/disney/49B92C046117E89BC9243A68EE277A3B30D551D4599F23C10BF0B8C1E90AEFB6/scale?width=1440&aspectRatio=1.78&format=jpeg",
             "cardImg": "https://prod-ripcut-delivery.disney-plus.net/v1/variant/disney/87F1DCF36049558159913ADFD18A800DE1121771540033EC3A7651B8FE154CEB/scale?width=400&aspectRatio=1.78&format=jpeg",

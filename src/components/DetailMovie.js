@@ -2,9 +2,17 @@ import styled from "styled-components";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import db from "./../firebase";
-import { collection, getDoc, doc } from "@firebase/firestore";
+import { getDoc, doc } from "@firebase/firestore";
+import Box from "@mui/material/Box";
+import Modal from "@mui/material/Modal";
+import Fade from "@mui/material/Fade";
+import { Backdrop } from "@mui/material";
 
 export default function DetailMovie(props) {
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
   const { id } = useParams();
   const [detail, setDetail] = useState({});
 
@@ -23,36 +31,75 @@ export default function DetailMovie(props) {
 
   return (
     <Container>
-      <Background>
+      <Background className="detail_background">
+        <div className="detail_overlay_bg">
+          <span className="overlay-bgimg" />
+        </div>
         <img src={detail.backgroundImg} alt={detail.title} />
       </Background>
-      <ImageTitle>
-        <img src={detail.titleImg} alt={detail.title} />
-      </ImageTitle>
-      <ContentMeta>
-        <Controls>
-          <Player>
-            <img src="/images/play-icon-black.png" alt="" />
-            <span>Play</span>
-          </Player>
-          <Trailer>
-            <img src="/images/play-icon-white.png" alt="" />
-            <span>Trailer</span>
-          </Trailer>
-          <AddList>
-            <span />
-            <span />
-          </AddList>
-          <GroupWatch>
-            <img src="/images/group-icon.png" alt="" />
-          </GroupWatch>
-        </Controls>
-        <SubTitle>{detail.subTitle}</SubTitle>
-        <Description>{detail.description}</Description>
-      </ContentMeta>
+      <Wrap>
+        <ImageTitle>
+          <img src={detail.titleImg} alt={detail.title} />
+        </ImageTitle>
+        <ContentMeta>
+          <Controls>
+            <Player>
+              {/* <img src="/images/play-icon-black.png" alt="" /> */}
+              <span>GET DISNEY+</span>
+            </Player>
+            <Trailer onClick={handleOpen}>
+              <img src="/images/play-icon-white.png" alt="" />
+              <span>Trailer</span>
+              <Modal
+                aria-labelledby="transition-modal-title"
+                aria-describedby="transition-modal-description"
+                open={open}
+                onClose={handleClose}
+                closeAfterTransition
+                BackdropComponent={Backdrop}
+                BackdropProps={{
+                  timeout: 500,
+                }}
+              >
+                <Fade in={open}>
+                  <Box sx={modalStyle}>
+                    <WrapTrailer>
+                      <iframe
+                        src={`https://www.youtube.com/embed/${detail.trailer}?autoplay=1&modestbranding=1&playsinline=1&iv_load_policy=3"`}
+                        title={detail.title}
+                        frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen
+                      ></iframe>
+                    </WrapTrailer>
+                  </Box>
+                </Fade>
+              </Modal>
+            </Trailer>
+            <AddList>
+              <span />
+              <span />
+            </AddList>
+            <GroupWatch>
+              <img src="/images/group-icon.png" alt="" />
+            </GroupWatch>
+          </Controls>
+          <SubTitle className="detail_subtitle">{detail.subTitle}</SubTitle>
+          <Description className="detail_description">
+            {detail.description}
+          </Description>
+        </ContentMeta>
+      </Wrap>
     </Container>
   );
 }
+const modalStyle = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: "fit-content",
+};
 
 const Container = styled.div`
   position: relative;
@@ -61,6 +108,44 @@ const Container = styled.div`
   display: block;
   top: 90px;
   padding: 0 calc(3.5vw + 5px);
+  @media (max-width: 768px) {
+    padding: 0;
+  }
+`;
+
+const Wrap = styled.div`
+  position: fixed;
+  background: linear-gradient( 
+      180deg, #04071400 0%, #040714ff 105% );
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+`;
+
+const WrapTrailer = styled.div`
+
+  // padding-left: 23px;
+  // padding-right: 23px;
+
+  iframe {
+    width: 960px;
+    height: 518px;
+  }
+
+  @media (max-width: 414px) {
+    iframe {
+      width: 340px;
+      height: 185px;
+    }
+  }
+
+  @media (min-width: 414.1px) and (max-width: 768px) {
+    iframe {
+      width: 650px;
+      height: 340px;
+    }
+  }
 `;
 
 const Background = styled.div`
@@ -69,16 +154,35 @@ const Background = styled.div`
   position: fixed;
   top: 0;
   z-index: -1;
-
+    
   img {
+    position: absolute;
+    top: 90px;
+    left: 0;
+    right: 0;
     width: 100vw;
-    height: 100vh;
     object-fit: cover;
-
+    height: 117vh;
     @media (max-width: 768px) {
-      width: initial;
+      position:initial;
+      top:0px;
+      object-fit: contain;
+      width: 100%;
+      height: 100%;
     }
+  } 
+
+  @media (max-width: 768px) {
+    position: relative;
+    span {
+      position: absolute;
+      background: linear-gradient(180deg, #04071400 0%, #0407140A 16%, #04071421 29%, #04071442 41%, #0407146B 51%, #04071494 61%, #040714BD 70%, #040714DE 79%, #040714F5 89%, #040714FF 100%);
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
   }
+
 `;
 
 const ImageTitle = styled.div`
@@ -87,19 +191,24 @@ const ImageTitle = styled.div`
   justify-content: flex-start;
   -webkit-box-pack: start;
   margin: 0 auto;
-  height: 30vw;
+  height: 26vw;
   min-height: 170px;
   padding-bottom: 24px;
   width: 100%;
-
+  padding: 0 calc(3.5vw + 5px);
   img {
-    max-width: 600px;
+    max-width: 450px;
     min-width: 200px;
     width: 35vw;
+  }
+  @media (max-width: 768px) {
+    height: 90vw;
+    // min-height: 100px;
   }
 `;
 const ContentMeta = styled.div`
   max-width: 874px;
+  padding: 0 calc(3.5vw + 5px);
 `;
 
 const Controls = styled.div`
@@ -123,17 +232,21 @@ const Player = styled.button`
   letter-spacing: 1.8px;
   text-align: center;
   text-transform: uppercase;
-  background: rgb(249, 249, 249);
-  border: none;
-  color: rgb(0, 0, 0);
+  background-color: #0072D2;
+  color: #fff;
+  font-weight: 600;
+  border:none;
   transition: 0.2s all;
 
   img {
     width: 32px;
   }
 
+ 
   &:hover {
-    background: rgb(198, 198, 198);
+    cursor: pointer;
+    background-color: #4286F5;
+    color: #f9f9f9;
   }
 
   @media (max-width: 768px) {
@@ -152,6 +265,9 @@ const Trailer = styled(Player)`
   background: rgba(0, 0, 0, 0.3);
   border: 1px solid rgb(249, 249, 249);
   color: rgb(249, 249, 249);
+  &:hover {
+    background: rgb(198, 198, 198);
+  }
 `;
 
 const AddList = styled.div`
@@ -185,6 +301,10 @@ const AddList = styled.div`
   }
   &:hover {
     background-color: rgb(198, 198, 198);
+  }
+
+  @media (max-width: 768px) {
+    margin-right: 7px;
   }
 `;
 

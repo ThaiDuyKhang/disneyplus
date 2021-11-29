@@ -2,7 +2,6 @@ import styled from "styled-components";
 import React, { useEffect, useState } from "react";
 import { auth, provider, providerGithub } from "../firebase";
 import { signInWithPopup } from "firebase/auth";
-import Backdrop from "@mui/material/Backdrop";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import Fade from "@mui/material/Fade";
@@ -90,20 +89,20 @@ export default function ModalLogin() {
   return (
     <div>
       <Login onClick={handleOpen}>Login</Login>
-      <Modal
+      <StyledModal 
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
         open={open}
         onClose={handleClose}
         closeAfterTransition
-        BackdropComponent={Backdrop}
+        // BackdropComponent={Backdrop}
         BackdropProps={{
           timeout: 500,
         }}
       >
         <Fade in={open}>
           <Box sx={modalStyle}>
-            <h2 id="transition-modal-title">- Login with -</h2>
+            <img src="/images/disney-account.png" alt="disney login"/>
             <Wrap id="transition-modal-description">
               <LoginGoogleBtn onClick={handleAuthGoogle}>
                   <svg
@@ -153,10 +152,16 @@ export default function ModalLogin() {
             </Wrap>
           </Box>
         </Fade>
-      </Modal>
+      </StyledModal>
     </div>
   );
 }
+
+const StyledModal = styled(Modal)`
+  .MuiBackdrop-root {
+    background: rgba(0,0,0,0.5) url("/images/bg-stars.png") repeat-x
+  }
+`;
 
 const modalStyle = {
   textAlign: "center",
@@ -185,18 +190,18 @@ const LoginGoogleBtn = styled.a`
   align-items: center;
   justify-content: center;
   gap: 10px;
-  background-color: #4286F5;
+  background-color: #0072D2;
   padding: 13px 16px;
   text-transform: uppercase;
   color: #fff;
   font-weight: 600;
-  border:1px solid #4286F5;
+  border:1px solid #0072D2;
   border-radius: 4px;
   transition: 0.2s all ease 0s;
 
   &:hover {
     cursor: pointer;
-    background-color: #1A54A8;
+    background-color: #4286F5;
     color: #f9f9f9;
     svg {
       fill: #f9f9f9;
