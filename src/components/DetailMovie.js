@@ -116,7 +116,7 @@ const Container = styled.div`
 const Wrap = styled.div`
   position: fixed;
   background: linear-gradient( 
-      180deg, #04071400 0%, #040714ff 105% );
+      190deg, #04071400 0%, #040714ff 105% );
   left: 0;
   right: 0;
   bottom: 0;
