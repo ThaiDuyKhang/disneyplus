@@ -11,7 +11,7 @@ import {
 } from "../features/user/userSlice";
 import ModalLogin from "./modalLogin";
 
-export default function Header(props) {
+export default function Header({open, onClose}) {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -63,7 +63,7 @@ export default function Header(props) {
               <img src="/images/home-icon.svg" alt="HOME" />
               <span>HOME</span>
             </NavLink>
-            <NavLink to="#!">
+            <NavLink to="/search">
               <img src="/images/search-icon.svg" alt="SEARCH" />
               <span>SEARCH</span>
             </NavLink>

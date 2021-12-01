@@ -1,5 +1,14 @@
 {
   "projects": {
     "default": "disneyplus-clone-6a771"
+  },
+  "targets": {
+    "disneyplus-clone-6a771": {
+      "hosting": {
+        "disneyplus-clone-6a771": [
+          "build"
+        ]
+      }
+    }
   }
 }

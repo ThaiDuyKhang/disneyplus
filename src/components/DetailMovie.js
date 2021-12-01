@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import db from "./../firebase";
 import { getDoc, doc } from "@firebase/firestore";
@@ -15,6 +16,8 @@ export default function DetailMovie(props) {
 
   const { id } = useParams();
   const [detail, setDetail] = useState({});
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     getDoc(doc(db, "movies", id)).then((docSnap) => {
@@ -38,6 +41,25 @@ export default function DetailMovie(props) {
         <img src={detail.backgroundImg} alt={detail.title} />
       </Background>
       <Wrap>
+        <BackBtn className="back">
+          <button onClick={() => navigate(-1)}>
+            {" "}
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="white"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M15 19l-7-7 7-7"
+              />
+            </svg>{" "}
+            Back
+          </button>
+        </BackBtn>
         <ImageTitle>
           <img src={detail.titleImg} alt={detail.title} />
         </ImageTitle>
@@ -115,8 +137,7 @@ const Container = styled.div`
 
 const Wrap = styled.div`
   position: fixed;
-  background: linear-gradient( 
-      190deg, #04071400 0%, #040714ff 105% );
+  background: linear-gradient(190deg, #04071400 0%, #040714ff 105%);
   left: 0;
   right: 0;
   bottom: 0;
@@ -124,7 +145,6 @@ const Wrap = styled.div`
 `;
 
 const WrapTrailer = styled.div`
-
   // padding-left: 23px;
   // padding-right: 23px;
 
@@ -185,6 +205,49 @@ const Background = styled.div`
 
 `;
 
+const BackBtn = styled.div`
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  position: relative;
+  overflow-x: hidden;
+  top: 90px;
+  min-height: 100px;
+  padding: 0 calc(3.5vw + 5px);
+
+  button {
+    opacity: 0.6;
+    display: flex;
+    align-items: center;
+    font-size: 25px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    color: white;
+    transition: opacity 0.2s ease;
+
+    svg {
+      margin-right: 10px;
+      width:35px;
+      height:35px;
+    }
+
+    &:hover {
+      opacity: 1;
+    }
+
+    @media (max-width: 768px) {
+      font-size: 16px;
+      padding: 0;
+      svg {
+        margin-right: 0px;
+        width:25px;
+        height:25px;
+      }
+    }
+  }
+`;
+
 const ImageTitle = styled.div`
   display: flex;
   align-items: flex-end;
@@ -202,7 +265,7 @@ const ImageTitle = styled.div`
     width: 35vw;
   }
   @media (max-width: 768px) {
-    height: 90vw;
+    height: 73vw;
     // min-height: 100px;
   }
 `;
@@ -232,20 +295,19 @@ const Player = styled.button`
   letter-spacing: 1.8px;
   text-align: center;
   text-transform: uppercase;
-  background-color: #0072D2;
+  background-color: #0072d2;
   color: #fff;
   font-weight: 600;
-  border:none;
+  border: none;
   transition: 0.2s all;
 
   img {
     width: 32px;
   }
 
- 
   &:hover {
     cursor: pointer;
-    background-color: #4286F5;
+    background-color: #4286f5;
     color: #f9f9f9;
   }
 
@@ -305,6 +367,8 @@ const AddList = styled.div`
 
   @media (max-width: 768px) {
     margin-right: 7px;
+    height: 48px;
+    width: 48px;
   }
 `;
 

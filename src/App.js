@@ -4,6 +4,7 @@ import Header from './components/Header';
 import Home from './components/Home'
 import './App.css';
 import DetailMovie from './components/DetailMovie';
+import SearchMovie from './components/SearchMovie';
 
 function App() {
   return (
@@ -11,9 +12,10 @@ function App() {
       <Router>
         <Header/>
         <Routes>
-          <Route exact path="/" element={<Login/>}/>
+          <Route path="/" element={<Login/>}/>
           <Route path="/home" element={<Home/>}/>
           <Route path="/detail/:id" element={<DetailMovie/>}/>
+          <Route path="/search" element={<SearchMovie/>}/>
         </Routes>
       </Router>
     </div>
